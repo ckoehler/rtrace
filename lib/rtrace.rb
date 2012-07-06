@@ -28,7 +28,12 @@ module Rtrace
     puts "Tracing #{options[:host]} ( #{@dest_ip} ) ..."
     puts
 
-    @recv_socket = Socket.new( Socket::PF_INET, Socket::SOCK_RAW, Socket::IPPROTO_ICMP)
+    begin
+      @recv_socket = Socket.new( Socket::PF_INET, Socket::SOCK_RAW, Socket::IPPROTO_ICMP)
+    rescue Errno::EPERM => e
+      puts "Sorry, you need to be root. Raw packets and all. Let me know if there's a better way."
+      exit(1)
+    end
     @recv_addr = Socket.sockaddr_in(port, "")
     @recv_socket.bind(@recv_addr)
     self.run_loop
