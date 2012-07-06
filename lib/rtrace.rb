@@ -23,8 +23,8 @@ module Rtrace
     port = 33434
 
     @send_socket = Socket.new(:INET, :DGRAM)
-    @dest_addr = Socket.sockaddr_in(port, options[:host])
-    @dest_ip = IPSocket::getaddress(options[:host])
+    @dest_addr   = Socket.sockaddr_in(port, options[:host])
+    @dest_ip     = IPSocket::getaddress(options[:host])
     puts "Traceroute for \"#{options[:host]}\" ( #{@dest_ip} ) ..."
     puts
 
@@ -36,6 +36,7 @@ module Rtrace
     end
     @recv_addr = Socket.sockaddr_in(port, "")
     @recv_socket.bind(@recv_addr)
+
     self.run_loop
   end
 
@@ -47,10 +48,7 @@ module Rtrace
       t1 = Time.now
       @send_socket.send("", 0, @dest_addr)
 
-
-
-
-      data = ""
+      data = []
       begin
         timeout(@options[:timeout]) do
           data = @recv_socket.recvfrom( 512 )[1]
@@ -61,13 +59,10 @@ module Rtrace
         next
       end
 
-
-
-
       time = ((Time.now - t1)*1000).round 1
       time = time.to_s+" ms"
-      ip = data.ip_address
-      loc = Geocoder.search(ip).first
+      ip   = data.ip_address
+      loc  = Geocoder.search(ip).first
 
       if loc.city.empty?
         place = ""
@@ -82,9 +77,9 @@ module Rtrace
       end
 
       s_ttl = ttl.to_s.ljust(5)
-      name = name.ljust(45)
-      s_ip = ip.ljust(20)
-      time = time.ljust(15)
+      name  = name.ljust(45)
+      s_ip  = ip.ljust(20)
+      time  = time.ljust(15)
       place = place.ljust(25)
 
       puts s_ttl+name+s_ip+time+place
