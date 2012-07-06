@@ -1,6 +1,6 @@
 # Rtrace
 
-TODO: Write a gem description
+Traceroute subset with geocoding using the geocoder gem.
 
 ## Installation
 
@@ -18,7 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Just do rtrace -h
 
 ## Contributing
 
