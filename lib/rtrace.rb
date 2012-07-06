@@ -25,7 +25,7 @@ module Rtrace
     @send_socket = Socket.new(:INET, :DGRAM)
     @dest_addr = Socket.sockaddr_in(port, options[:host])
     @dest_ip = IPSocket::getaddress(options[:host])
-    puts "Tracing #{options[:host]} ( #{@dest_ip} ) ..."
+    puts "Traceroute for \"#{options[:host]}\" ( #{@dest_ip} ) ..."
     puts
 
     begin

@@ -1,6 +1,6 @@
 # Rtrace
 
-Traceroute subset with geocoding using the geocoder gem.
+Traceroute subset with geocoding using the geocoder gem. Tested on OSX only.
 
 ## Installation
 
